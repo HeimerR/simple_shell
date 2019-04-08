@@ -26,10 +26,9 @@ int main(void)
 	char **argv;
 	int confg;
 
-	signal(SIGINT,  signalc);
-
 	if (isatty(STDIN_FILENO))
 		printf("Ghost-in-the-shell-1 ");
+	signal(SIGINT,  signalc);
 	while ((confg = getline(&line, &len, stdin)) != -1)
 	{
 		argv = create_argv(line, confg);
