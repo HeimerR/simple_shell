@@ -1,4 +1,18 @@
 #include "shell.h"
+
+/**
+ *signalc - no ctrl c
+ * @sig: signal
+ *
+**/
+void signalc()
+{
+	printf("\nGhost-in-the-shell-3 ");
+	fflush(stdout);
+}
+
+
+
 /**
   * main - shell starting
   *
@@ -11,6 +25,8 @@ int main(void)
 	pid_t child;
 	char **argv;
 	int confg;
+
+	signal(SIGINT,  signalc);
 
 	if (isatty(STDIN_FILENO))
 		printf("Ghost-in-the-shell-1 ");
