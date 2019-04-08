@@ -1,54 +1,42 @@
 #include "shell.h"
-
-/**
- *signalc - no ctrl c
- * @sig: signal
- *
-**/
-void signalc()
-{
-	printf("\nGhost-in-the-shell-3 ");
-	fflush(stdout);
-}
-
-
-
 /**
   * main - shell starting
   *
   * Return: Always (0);
 **/
-int main(void)
+int main(int ac, char *argvex[])
 {
 	char *line = NULL;
 	size_t len = 1;
 	pid_t child;
 	char **argv;
-	int confg;
-
-	signal(SIGINT,  signalc);
+	int confg, count = 0;
+	(void) ac;
 
 	if (isatty(STDIN_FILENO))
 		printf("Ghost-in-the-shell-1 ");
 	while ((confg = getline(&line, &len, stdin)) != -1)
 	{
+		count++;
 		argv = create_argv(line, confg);
 		if(argv && argv[0])
 		{
-			check_argv(argv);
-			child = fork();
-			if (!child)
+			if (check_builtin(argv) != 0 && check_argv(argv, argvex[0], count) == 0)
 			{
-				if (execve(argv[0], argv, NULL) == -1)
+				child = fork();
+				if (!child)
 				{
-					perror("./shell");
+					if (execve(argv[0], argv, NULL) == -1)
+					{
+						perror(argvex[0]);
+					}
+					exit(98);
 				}
-				exit(98);
-			}
-			else
-			{
-				wait(NULL);
-			}
+				else
+				{
+					wait(NULL);
+				}
+			}	
 		}
 		if (isatty(STDIN_FILENO))
 		{
