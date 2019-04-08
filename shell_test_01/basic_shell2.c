@@ -1,4 +1,15 @@
 #include "shell.h"
+
+/**
+ *signalc - no ctrl c
+ *
+ **/
+void signalc()
+{
+        printf("\nGhost-in-the-shell-3 ");
+        fflush(stdout);
+}
+
 /**
   * main - shell starting
   *
