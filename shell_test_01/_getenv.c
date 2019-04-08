@@ -7,7 +7,6 @@
 char *_getenv(char *name)
 {
 	unsigned int j = 0;
-	extern char **environ;
 	char *clone_value;
 	char *variable;
 
