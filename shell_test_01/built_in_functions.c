@@ -4,7 +4,7 @@ int f_exit(char **argv)
 {
 	(void) argv;
 
-	exit(0);
+	exit(127);
 return(0);
 }
 

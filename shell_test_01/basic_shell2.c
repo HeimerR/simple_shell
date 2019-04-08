@@ -42,7 +42,7 @@ int main(int ac, char *argvex[])
 					{
 						perror(argvex[0]);
 					}
-					exit(98);
+					exit(0);
 				}
 				else
 				{
