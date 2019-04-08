@@ -4,7 +4,7 @@
  *
  * Return: Always 0.
  */
-int check_argv(char **argv)
+int check_argv(char **argv, char *argvex, int count)
 {
 	unsigned int j = 0;
 	struct stat st;
@@ -28,11 +28,6 @@ int check_argv(char **argv)
        		}
 		j++;
 	}
-        printf("not found\n");
-	
+        printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
     return (-1);
-
-
-
-
 }
