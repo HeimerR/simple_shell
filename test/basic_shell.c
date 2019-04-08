@@ -26,6 +26,7 @@ int main(void)
    				 {
    				     perror("./shell");
    				 }
+			kill(child);
 			}
 			else
 			{
