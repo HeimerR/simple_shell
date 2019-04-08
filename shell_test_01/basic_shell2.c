@@ -15,6 +15,7 @@ int main(int ac, char *argvex[])
 
 	if (isatty(STDIN_FILENO))
 		printf("Ghost-in-the-shell-1 ");
+	signal(SIGINT,  signalc);
 	while ((confg = getline(&line, &len, stdin)) != -1)
 	{
 		count++;
