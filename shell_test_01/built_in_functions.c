@@ -26,6 +26,12 @@ int f_env(char **argv, char *line)
 	(void) line;
 
 	while (environ[i])
-		printf("%s\n", environ[i++]);
+	{
+		print_string(environ[i++]);
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	/**
+	 *	printf("%s\n", environ[i++]);
+	 */
 return (0);
 }
