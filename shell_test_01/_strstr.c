@@ -16,7 +16,7 @@ int cmpstr(char *haystack, char *needle)
 		if (needle[i] == haystack[i])
 			i++;
 		else
-			return (0);		
+			return (0);
 	}
 return (0);
 }

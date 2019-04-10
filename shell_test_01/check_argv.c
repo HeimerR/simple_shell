@@ -1,33 +1,36 @@
 #include "shell.h"
 /**
- * main - stat example
- *
- * Return: Always 0.
+ * check_argv -  checks if the arguments is in PATH
+ * @argv: arguments taken from getline
+ * @argvex: arguments taken from main prototype
+ * @count: counter - number of getline calls
+ * Return: -1 if the argument does not exist in PATH, other cases 0
  */
 int check_argv(char **argv, char *argvex, int count)
 {
-	unsigned int j = 0;
 	struct stat st;
-	char **paths;
 	char *clone_path;
-	
-        if (stat(argv[0], &st) == 0)
-		return (0);
+	char *clone_path2;
+	path_t *head_path;
+
 	clone_path = _getenv("PATH");
-	paths = _strtok(clone_path, ":");
-	while (paths[j])
+	if (clone_path && clone_path[0])
 	{
-		clone_path = str_concat(paths[j], "/");
-		clone_path = str_concat(clone_path, argv[0]);
-//		printf("%s:", clone_path);
-       		if (stat(clone_path, &st) == 0)
-        	{
-		argv[0] = clone_path;
-            //		printf(" FOUND\n");
-			return (0);
-       		}
-		j++;
+		head_path = create_list(clone_path);
+		while (head_path)
+		{
+			clone_path2 = str_concat(head_path->path, "/");
+			clone_path2 = str_concat(clone_path2, argv[0]);
+			if (stat(clone_path2, &st) == 0)
+			{
+				argv[0] = clone_path2;
+				return (0);
+			}
+			head_path = head_path->next;
+		}
 	}
-        printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
-    return (-1);
+	if (stat(argv[0], &st) == 0)
+		return (0);
+	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
+	return (-1);
 }
