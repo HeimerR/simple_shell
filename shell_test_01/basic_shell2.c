@@ -27,7 +27,7 @@ int main(int ac, char *argvex[])
 	(void) ac;
 
 	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO,"Ghost-in-the-shell-1 ", 21);
+		write(STDOUT_FILENO, "Ghost-in-the-shell-1 ", 21);
 	signal(SIGINT,  signalc);
 	while ((confg = getstdin(&line)) != -1)
 	{
@@ -35,7 +35,7 @@ int main(int ac, char *argvex[])
 		argv = create_argv(line, confg);
 		if (argv && argv[0])
 		{
-			if (check_builtin(argv, line) != 0 && check_argv(argv, argvex[0], count) == 0)
+			if (check_bltin(argv, line) != 0 && check_argv(argv, argvex[0], count) == 0)
 			{
 				child = fork();
 				if (!child)
@@ -51,7 +51,7 @@ int main(int ac, char *argvex[])
 			}
 		}
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO,"Ghost-in-the-shell-2 ", 21);
+			write(STDOUT_FILENO, "Ghost-in-the-shell-2 ", 21);
 	}
 		free(line);
 	if (isatty(STDIN_FILENO))
