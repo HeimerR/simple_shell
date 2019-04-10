@@ -6,8 +6,8 @@
  **/
 void signalc(int a)
 {
-	(void) a;
-	printf("\nGhost-in-the-shell-3 ");
+	a = 3;
+	printf("\nGhost-in-the-shell-%i ", a);
 	fflush(stdout);
 }
 
@@ -20,16 +20,15 @@ void signalc(int a)
 int main(int ac, char *argvex[])
 {
 	char *line = NULL;
-	size_t len = 1;
 	pid_t child;
 	char **argv;
 	int confg, count = 0;
 	(void) ac;
 
 	if (isatty(STDIN_FILENO))
-		printf("Ghost-in-the-shell-1 ");
+		write(STDOUT_FILENO,"Ghost-in-the-shell-1 ", 21);
 	signal(SIGINT,  signalc);
-	while ((confg = getline(&line, &len, stdin)) != -1)
+	while ((confg = getstdin(&line)) != -1)
 	{
 		count++;
 		argv = create_argv(line, confg);
@@ -48,12 +47,10 @@ int main(int ac, char *argvex[])
 				}
 				else
 					wait(NULL);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO,"Ghost-in-the-shell-2 ", 21);
 			}
 		}
-		if (isatty(STDIN_FILENO))
-			printf("Ghost-in-the-shell-2 ");
-		len = 1;
-/*		free_grid(argv); */
 	}
 		free(line);
 	if (isatty(STDIN_FILENO))

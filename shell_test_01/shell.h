@@ -49,8 +49,10 @@ int check_builtin(char **argv, char *line);
 int f_exit(char **argv, char *line);
 int f_env(char **argv, char *line);
 int _strcmp(char *s1, char *s2);
+ssize_t getstdin(char **lineptr);
 path_t *create_list(char *str);
 int add_node_end(path_t **head, char *str);
 size_t print_list(path_t *h);
 void free_grid(char **grid);
+
 #endif
