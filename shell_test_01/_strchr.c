@@ -8,8 +8,8 @@
 char *_strchr(char *s, char c)
 {
 	char *f;
-	f = s;
 
+	f = s;
 	while (*f != c)
 	{
 		if (*f == 0)

@@ -1,20 +1,31 @@
 #include "shell.h"
-
-int f_exit(char **argv)
+/**
+* f_exit - exit function - exit the shell
+* @argv: unused
+* @line: arguments as a single pointer.
+* Return: always 0
+*/
+int f_exit(char **argv, char *line)
 {
 	(void) argv;
-
+	free_grid(argv);
+	free(line);
 	exit(127);
-return(0);
+	return (0);
 }
-
-
-int f_env(char **argv)
+/**
+* f_env - prints envioroment variables
+* @argv: unused
+* @line: arguments as a single pointer.
+* Return: always 0
+*/
+int f_env(char **argv, char *line)
 {
 	int i = 0;
 	(void) argv;
+	(void) line;
 
-	while(environ[i])
+	while (environ[i])
 		printf("%s\n", environ[i++]);
 return (0);
 }

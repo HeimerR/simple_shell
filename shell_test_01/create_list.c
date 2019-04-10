@@ -1,7 +1,10 @@
 #include "shell.h"
-
-
-
+/**
+* create_list - creates a linked list based on PATH
+* @strpath: content of PATH
+*
+* Return: list head
+*/
 path_t *create_list(char *strpath)
 {
 	path_t *head;
@@ -30,17 +33,17 @@ path_t *create_list(char *strpath)
 		}
 		else
 		{
-			if (getcwd(buf, sizeof(buf)) != NULL) 
+			if (getcwd(buf, sizeof(buf)) != NULL)
 			{
 				len = add_node_end(&head, buf);
 				tmp += 2;
-			} 
-			else 
+			}
+			else
 			{
 				perror("getcwd() error");
-  			}
+			}
 		}
 		i++;
 	}
-return (head);
+	return (head);
 }
