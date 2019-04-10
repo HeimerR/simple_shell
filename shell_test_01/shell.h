@@ -55,4 +55,9 @@ int add_node_end(path_t **head, char *str);
 size_t print_list(path_t *h);
 void free_grid(char **grid);
 void free_list(path_t *head_path);
+int _putchar(char *c, unsigned int lenght);
+int print_string(char *str);
+char *number_to_string(int number, char base);
+int print_integer(int number);
+void reverse_str(char *str, int size, char keep_first);
 #endif
