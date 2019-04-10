@@ -26,4 +26,5 @@ int check_builtin(char **argv);
 int f_exit(char **argv);
 int f_env(char **argv);
 int _strcmp(char *s1, char *s2);
+ssize_t getstdin(char **lineptr);
 #endif
