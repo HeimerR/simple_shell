@@ -36,13 +36,15 @@ int add_node_end(path_t **head, char *str)
 	new_node = malloc(sizeof(path_t));
 	if (new_node == NULL)
 	{
-		printf("Error\n");
+		write(STDOUT_FILENO, "Error\n", 6);
+//printf("Error\n");
 		return (0);
 	}
 	new_node->path = _strdup(str);
 	if (new_node->path == NULL)
 	{
-		printf("Error\n");
+		write(STDOUT_FILENO, "Error\n", 6);
+//printf("Error\n");
 		free(new_node);
 		return (0);
 	}

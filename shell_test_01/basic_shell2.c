@@ -6,8 +6,9 @@
  **/
 void signalc(int a)
 {
-	a = 3;
-	printf("\nGhost-in-the-shell-%i ", a);
+	(void) a;
+	write(STDOUT_FILENO, "\nGhost-in-the-shell-3 ", 22);
+//	printf("\nGhost-in-the-shell-%i ", a);
 	fflush(stdout);
 }
 

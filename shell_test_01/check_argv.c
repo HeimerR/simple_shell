@@ -31,6 +31,14 @@ int check_argv(char **argv, char *argvex, int count)
 	}
 	if (stat(argv[0], &st) == 0)
 		return (0);
-	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
+	print_string(argvex);
+	write(STDOUT_FILENO,": ",2);
+	print_integer(count);
+	write(STDOUT_FILENO,": ",2);
+	print_string(argv[0]);
+	write(STDOUT_FILENO,": not found\n",12);
+/**
+ *	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
+ */
 	return (-1);
 }
