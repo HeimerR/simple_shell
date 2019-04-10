@@ -1,11 +1,11 @@
 #include "shell.h"
 /**
-* check_builtin - check if an argument is a built-in function
+* check_bltin - check if an argument is a built-in function
 * @argv: arguments as a dlouble pointer
 * @line: arguments as a single string
 * Return: 1 if not is a built in. 0 If it is
 */
-int check_builtin(char **argv, char *line)
+int check_bltin(char **argv, char *line)
 {
 	int j = 0;
 	int status = 1;

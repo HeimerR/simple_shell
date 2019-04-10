@@ -11,6 +11,8 @@ int check_argv(char **argv, char *argvex, int count)
 	struct stat st;
 	char *clone_path;
 	char *clone_path2;
+	char *clone_path3;
+	char *clone_path4;
 	path_t *head_path;
 
 	clone_path = _getenv("PATH");
@@ -20,17 +22,28 @@ int check_argv(char **argv, char *argvex, int count)
 		while (head_path)
 		{
 			clone_path2 = str_concat(head_path->path, "/");
-			clone_path2 = str_concat(clone_path2, argv[0]);
-			if (stat(clone_path2, &st) == 0)
+			clone_path3 = str_concat(clone_path2, argv[0]);
+			if (stat(clone_path3, &st) == 0)
 			{
-				argv[0] = clone_path2;
+				clone_path4 = argv[0];
+				argv[0] = clone_path3;
+				free(clone_path4);
+				free(clone_path2);
+				free(clone_path);
+				free_list(head_path);
 				return (0);
 			}
+			free(clone_path2);
+			free(clone_path3);
 			head_path = head_path->next;
 		}
+		free_list(head_path);
 	}
+	free(clone_path);
 	if (stat(argv[0], &st) == 0)
+	{
 		return (0);
+	}
 	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
 	return (-1);
 }

@@ -20,6 +20,7 @@ char *_getenv(char *name)
 	clone_value = _strdup(environ[j]);
 	if (clone_value)
 		rmstr(clone_value, variable);
+	free(variable);
 	return (clone_value);
 }
 
