@@ -1,8 +1,8 @@
 #include "shell.h"
 /**
- * main - stat example
- *
- * Return: Always 0.
+ * _getenv - get a envioromental variable.
+ * @name: variable to read
+ * Return: value of the variable.
  */
 char *_getenv(char *name)
 {
@@ -11,7 +11,7 @@ char *_getenv(char *name)
 	char *variable;
 
 	variable =  str_concat(name, "=");
-	while(environ[j]) 
+	while (environ[j])
 	{
 	if (cmpstr(environ[j], variable) == 1)
 		break;
