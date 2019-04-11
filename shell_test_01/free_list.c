@@ -12,10 +12,9 @@ void free_list(path_t *head)
 	aux = head;
 	while (aux)
 	{
-	aux2 = aux;
+	aux2 = aux->next;
 	free(aux->path);
 	free(aux);
-	aux = aux2->next;
+	aux = aux2;
 	}
 }
-
