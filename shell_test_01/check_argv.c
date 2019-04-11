@@ -35,6 +35,8 @@ int check_argv(char **argv, char *argvex, int count)
 			}
 			free(clone_path2);
 			free(clone_path3);
+			free(head_path->path);
+			free(head_path);
 			head_path = head_path->next;
 		}
 		free_list(head_path);

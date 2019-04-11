@@ -52,9 +52,13 @@ int main(int ac, char *argvex[])
 		}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Ghost-in-the-shell-2 ", 21);
+		free_grid(argv);
 	}
 		free(line);
 	if (isatty(STDIN_FILENO))
 		printf("\n");
+/**
+ *	free_grid(argv);
+ */
 	return (0);
 }
