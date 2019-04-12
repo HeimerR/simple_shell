@@ -12,6 +12,7 @@ typedef struct buses
 {
 	int stat;
 	int count;
+	char *arg0;
 } bus_t;
 /**
  * struct builtin - built-in functions
@@ -41,6 +42,8 @@ typedef struct paths
 	int len;
 	struct paths *next;
 } path_t;
+int _atoi(char *s);
+int print_notfound(char **argv, char **argvex, bus_t *bus);
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 char **create_argv(char *str, int len);
 char **_strtok(char *str, char *delim);
@@ -65,5 +68,6 @@ char *number_to_string(int number, char base);
 int print_integer(int number);
 void reverse_str(char *str, int size, char keep_first);
 int execute(char **argv, char *name,char *line);
-int check_argv(char **argv, char **argvex, int count, char *line);
+int check_argv(char **argv, char **argvex, bus_t *bus, char *line);
+void print_exit_error(char **argv, bus_t *bus, int argmt);
 #endif
