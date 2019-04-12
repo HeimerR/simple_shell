@@ -10,7 +10,7 @@ char **create_argv(char *str, int len)
 {
 	char **argv;
 
-	str[len - 1] = '\0';
+	str[len -1] = '\0';
 	argv = _strtok(str, " ");
 	return (argv);
 }

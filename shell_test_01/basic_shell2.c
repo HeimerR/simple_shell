@@ -21,44 +21,33 @@ void signalc(int a)
 int main(int ac, char *argvex[])
 {
 	char *line = NULL;
-	pid_t child;
+	bus_t bus0 = {.stat = 0, .count = 0};
+	bus_t *bus;
 	char **argv;
-	int confg, count = 0;
+	int confg;
 	(void) ac;
-
+	
+	bus = &bus0;
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "Ghost-in-the-shell-1 ", 21);
 	signal(SIGINT,  signalc);
 	while ((confg = getstdin(&line)) != -1)
 	{
-		count++;
+		bus->count++;
 		argv = create_argv(line, confg);
 		if (argv && argv[0])
 		{
-			if (check_bltin(argv, line) != 0 && check_argv(argv, argvex[0], count) == 0)
-			{
-				child = fork();
-				if (!child)
-				{
-					if (execve(argv[0], argv, NULL) == -1)
-						perror(argvex[0]);
-					free_grid(argv);
-					free(line);
-					exit(0);
-				}
-				else
-					wait(NULL);
-			}
+			if (check_bltin(argv, line,  bus) != 0)
+			check_argv(argv, argvex, bus->count, line);
 		}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Ghost-in-the-shell-2 ", 21);
-		free_grid(argv);
 	}
 		free(line);
 	if (isatty(STDIN_FILENO))
 		printf("\n");
-/**
- *	free_grid(argv);
- */
+/*
+*	free_grid(argv);
+*/
 	return (0);
 }

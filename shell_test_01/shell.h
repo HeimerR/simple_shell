@@ -8,6 +8,11 @@
 #include <string.h>
 #include <sys/stat.h>
 extern char **environ;
+typedef struct buses
+{
+	int stat;
+	int count;
+} bus_t;
 /**
  * struct builtin - built-in functions
  * @input: string - function name (built-in)
@@ -19,7 +24,7 @@ extern char **environ;
 typedef struct builtin
 {
 	char *input;
-	int (*type)(char **argv, char *line);
+	int (*type)(char **argv, char *line, bus_t *bus);
 } built_t;
 /**
  * struct paths - singly linked list
@@ -41,13 +46,12 @@ char **create_argv(char *str, int len);
 char **_strtok(char *str, char *delim);
 int cmpstr(char *haystack, char *needle);
 void rmstr(char *str, char *substr);
-int check_argv(char **argv, char *argvex, int count);
 char *str_concat(char *s1, char *s2);
 char *_strdup(char *str);
 char *_getenv(char *str);
-int check_bltin(char **argv, char *line);
-int f_exit(char **argv, char *line);
-int f_env(char **argv, char *line);
+int check_bltin(char **argv, char *line, bus_t *bus);
+int f_exit(char **argv, char *line, bus_t *bus);
+int f_env(char **argv, char *line, bus_t *bus);
 int _strcmp(char *s1, char *s2);
 ssize_t getstdin(char **lineptr);
 path_t *create_list(char *str);
@@ -60,4 +64,6 @@ int print_string(char *str);
 char *number_to_string(int number, char base);
 int print_integer(int number);
 void reverse_str(char *str, int size, char keep_first);
+int execute(char **argv, char *name,char *line);
+int check_argv(char **argv, char **argvex, int count, char *line);
 #endif
