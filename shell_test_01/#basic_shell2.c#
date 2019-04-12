@@ -8,6 +8,7 @@ void signalc(int a)
 {
 	(void) a;
 	write(STDOUT_FILENO, "\nGhost-in-the-shell-3 ", 22);
+//	printf("\nGhost-in-the-shell-%i ", a);
 	fflush(stdout);
 }
 
@@ -20,35 +21,44 @@ void signalc(int a)
 int main(int ac, char *argvex[])
 {
 	char *line = NULL;
-	bus_t bus0 = {.stat = 0, .count = 0, .arg0 = NULL};
-	bus_t *bus;
+	pid_t child;
 	char **argv;
-	int confg, aux;
+	int confg, count = 0;
 	(void) ac;
 
-	bus = &bus0;
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "Ghost-in-the-shell-1 ", 21);
 	signal(SIGINT,  signalc);
 	while ((confg = getstdin(&line)) != -1)
 	{
-		bus->count++;
+		count++;
 		argv = create_argv(line, confg);
-		bus->arg0 = argvex[0];
 		if (argv && argv[0])
 		{
-			aux = check_bltin(argv, line,  bus);
-			if (aux != 0)
-			bus->stat = check_argv(argv, argvex, bus, line);
+			if (check_bltin(argv, line) != 0 && check_argv(argv, argvex[0], count) == 0)
+			{
+				child = fork();
+				if (!child)
+				{
+					if (execve(argv[0], argv, NULL) == -1)
+						perror(argvex[0]);
+					free_grid(argv);
+					free(line);
+					exit(0);
+				}
+				else
+					wait(NULL);
+			}
 		}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Ghost-in-the-shell-2 ", 21);
+		free_grid(argv);
 	}
 		free(line);
 	if (isatty(STDIN_FILENO))
 		printf("\n");
-/*
-*	free_grid(argv);
-*/
+/**
+ *	free_grid(argv);
+ */
 	return (0);
 }

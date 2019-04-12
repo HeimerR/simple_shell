@@ -1,4 +1,28 @@
 #include "shell.h"
+int print_notfound(char **argv, char **argvex, bus_t *bus)
+{	
+	int status, status2;
+	pid_t child;
+	
+	child = fork();	
+	if (!child)
+	{
+		print_string(argvex[0]);
+		write(STDOUT_FILENO,": ",2);
+		print_integer(bus->count);
+		write(STDOUT_FILENO,": ",2);
+		print_string(argv[0]);
+		write(STDOUT_FILENO,": not found\n",12);
+		free_grid(argv);
+		exit(127);
+	}
+	else
+	{
+		wait(&status);
+		status2 = WEXITSTATUS(status);
+	}
+	return (status2);
+}
 int execute(char **argv, char *name, char *line)
 {
 	int status, status2;
@@ -10,22 +34,19 @@ int execute(char **argv, char *name, char *line)
 	child = fork();
 	if (!child)
 	{
-	if (execve(path, argv, NULL) == -1)
-	{
-		perror("hola");
+		if (execve(path, argv, NULL) == -1)
+		{
+			perror(path);
+		}
 		free_grid(argv);
 		free(line);
-		exit(98);
-
-	}
-		free_grid(argv);
-		free(line);
-		exit(0);
 
 	}
 	else
+	{
 		wait(&status);
-	status2 = WEXITSTATUS(status);
+		status2 = WEXITSTATUS(status);
+	}
 	return (status2);
 }
 /**
@@ -35,7 +56,7 @@ int execute(char **argv, char *name, char *line)
  * @count: counter - number of getline calls
  * Return: -1 if the argument does not exist in PATH, other cases 0
  */
-int check_argv(char **argv, char **argvex, int count, char *line)
+int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 {
 	struct stat st;
 	char *clone_path;
@@ -75,14 +96,8 @@ int check_argv(char **argv, char **argvex, int count, char *line)
 	free(clone_path);
 	if (stat(argv[0], &st) == 0)
 		return (execute(argv, name, line));
-	print_string(argvex[0]);
-	write(STDOUT_FILENO,": ",2);
-	print_integer(count);
-	write(STDOUT_FILENO,": ",2);
-	print_string(argv[0]);
-	write(STDOUT_FILENO,": not found\n",12);
 /**
  *	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
  */
-	return (-1);
+	return (print_notfound(argv, argvex, bus));
 }

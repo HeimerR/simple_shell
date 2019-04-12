@@ -8,7 +8,7 @@
 int check_bltin(char **argv, char *line, bus_t *bus)
 {
 	int j = 0;
-	int status = 1;
+	int status = 1, status2, status3;
 	pid_t child;
 
 	built_t built[] = {
@@ -17,6 +17,7 @@ int check_bltin(char **argv, char *line, bus_t *bus)
 	/*	{"alias", f_alias},  */
 		{NULL, NULL}
 		};
+
 	while (built[j].input != NULL)
 	{
 		if (_strcmp(argv[0], built[j].input) == 0)
@@ -25,11 +26,30 @@ int check_bltin(char **argv, char *line, bus_t *bus)
 			if (!child)
 			{
 				status = built[j].type(argv, line, bus);
-				exit(0);
 			}
 			else
-				wait(NULL);
+			{
+				waitpid(-1, &status, 0);
+				status2 = WEXITSTATUS(status);
+				if (status2 == 254)
+				{
+					free_grid(argv);
+					free(line);
+					exit(bus->stat);
 				break;
+				}
+				if (status2 == 253)
+				{	
+					status3 = _atoi(argv[1]);
+					free_grid(argv);
+					free(line);
+					exit(status3);	
+					break;
+				}
+				bus->stat = status2;
+				status = 0;
+			}
+			break;
 		}
 		j++;
 	}
