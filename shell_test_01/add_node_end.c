@@ -1,20 +1,5 @@
 #include "shell.h"
 /**
-  * _strlen - length of a string
-  * @s: input char
-  * Return: length of a string
-**/
-int _strlen(const char *s)
-{
-	int i = 0;
-
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-/**
  * add_node_end - adds new nodes to the end of the list
  * @head: address new head
  * @str: string to add

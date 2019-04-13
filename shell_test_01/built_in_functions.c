@@ -40,20 +40,18 @@ int f_exit(char **argv, char *line, bus_t *bus)
 */
 int f_env(char **argv, char *line, bus_t *bus)
 {
-	int i = 0;
+// int i = 0;
 	(void) argv;
 	(void) line;
 	(void) bus;
 
-	while (environ[i])
-	{
-		print_string(environ[i++]);
-		write(STDOUT_FILENO, "\n", 1);
-	}
+	 print_env();
+//		write(STDOUT_FILENO, "\n", 1);
+
 	/**
 	 *	printf("%s\n", environ[i++]);
 	 */
-	exit(9);
+	exit(0);
 return (0);
 }
 void print_exit_error(char **argv, bus_t *bus, int argmt)
