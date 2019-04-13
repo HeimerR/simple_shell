@@ -26,6 +26,9 @@ int main(int ac, char *argvex[])
 	int confg, aux;
 	(void) ac;
 
+	aux = cp_env();
+	if (aux == -1)
+		return (-1);
 	bus = &bus0;
 	if (isatty(STDIN_FILENO))
 		write(STDOUT_FILENO, "Ghost-in-the-shell-1 ", 21);

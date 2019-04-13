@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 extern char **environ;
 typedef struct buses
@@ -42,6 +43,9 @@ typedef struct paths
 	int len;
 	struct paths *next;
 } path_t;
+int print_env(void);
+/*ssize_t read_textfile(const char *filename, size_t letters);*/
+int _strlen(char *s);
 int _atoi(char *s);
 int print_notfound(char **argv, char **argvex, bus_t *bus);
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
@@ -70,4 +74,7 @@ void reverse_str(char *str, int size, char keep_first);
 int execute(char **argv, char *name,char *line);
 int check_argv(char **argv, char **argvex, bus_t *bus, char *line);
 void print_exit_error(char **argv, bus_t *bus, int argmt);
+int cp_env(void);
+int create_file(const char *filename, char *text_content);
+int append_text_to_file(const char *filename, char *text_content);
 #endif
