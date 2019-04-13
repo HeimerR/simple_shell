@@ -1,10 +1,10 @@
 #include "shell.h"
 int print_notfound(char **argv, char **argvex, bus_t *bus)
-{	
+{
 	int status, status2;
 	pid_t child;
-	
-	child = fork();	
+
+	child = fork();
 	if (!child)
 	{
 		print_string(argvex[0]);
@@ -20,6 +20,7 @@ int print_notfound(char **argv, char **argvex, bus_t *bus)
 	{
 		wait(&status);
 		status2 = WEXITSTATUS(status);
+		free(argv[0]);
 	}
 	return (status2);
 }
@@ -28,9 +29,10 @@ int execute(char **argv, char *name, char *line)
 	int status, status2;
 	pid_t child;
 	char *path;
-		
+
 	path = argv[0];
 	argv[0] = name;
+	free(name);
 	child = fork();
 	if (!child)
 	{
@@ -40,13 +42,13 @@ int execute(char **argv, char *name, char *line)
 		}
 		free_grid(argv);
 		free(line);
-
 	}
 	else
 	{
 		wait(&status);
 		status2 = WEXITSTATUS(status);
 	}
+	free(path);
 	return (status2);
 }
 /**
@@ -99,5 +101,6 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 /**
  *	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
  */
+	free(name);
 	return (print_notfound(argv, argvex, bus));
 }

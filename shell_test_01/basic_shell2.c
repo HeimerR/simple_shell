@@ -20,10 +20,11 @@ void signalc(int a)
 int main(int ac, char *argvex[])
 {
 	char *line = NULL;
-	bus_t bus0 = {.stat = 0, .count = 0, .arg0 = NULL};
+	bus_t bus0 = {0, 0, NULL};
 	bus_t *bus;
 	char **argv;
 	int confg, aux;
+	unsigned int i = 1;
 	(void) ac;
 
 	bus = &bus0;
@@ -43,10 +44,14 @@ int main(int ac, char *argvex[])
 		}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Ghost-in-the-shell-2 ", 21);
-	}
+		free(argv);
 		free(line);
+		for (i = 1; argv && argv[i]; i++)
+			free(argv[i]);
+	}
 	if (isatty(STDIN_FILENO))
 		printf("\n");
+	free(line);
 /*
 *	free_grid(argv);
 */
