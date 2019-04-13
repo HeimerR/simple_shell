@@ -39,16 +39,17 @@ int check_bltin(char **argv, char *line, bus_t *bus)
 				break;
 				}
 				if (status2 == 253)
-				{	
+				{
 					status3 = _atoi(argv[1]);
 					free_grid(argv);
 					free(line);
-					exit(status3);	
+					exit(status3);
 					break;
 				}
 				bus->stat = status2;
 				status = 0;
 			}
+			free(argv[0]);
 			break;
 		}
 		j++;

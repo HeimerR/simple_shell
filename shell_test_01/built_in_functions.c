@@ -40,13 +40,13 @@ int f_exit(char **argv, char *line, bus_t *bus)
 */
 int f_env(char **argv, char *line, bus_t *bus)
 {
-// int i = 0;
+/* int i = 0; */
 	(void) argv;
 	(void) line;
 	(void) bus;
 
 	 print_env();
-//		write(STDOUT_FILENO, "\n", 1);
+/*		write(STDOUT_FILENO, "\n", 1);*/
 
 	/**
 	 *	printf("%s\n", environ[i++]);
