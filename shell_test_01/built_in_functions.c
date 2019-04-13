@@ -7,8 +7,8 @@
 */
 int f_exit(char **argv, char *line, bus_t *bus)
 {
-	(void) bus;
 	int argmt;
+	(void) bus;
 
 	if (argv[1])
 	{

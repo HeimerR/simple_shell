@@ -9,16 +9,15 @@
 
 ssize_t getstdin(char **lineptr)
 {
-	unsigned int len = 0, i = 0, nul = 0;
+	unsigned int len = 0/*, i = 0, nul = 0*/;
 	char ch;
 	ssize_t readed = len, confr = 0;
-	char **lineptr2 = lineptr;
+	/*char **lineptr2 = lineptr;*/
 
-	if (lineptr == NULL || lineptr[0] == NULL)
-	{
-		lineptr = malloc(sizeof(char) * 1);
-		nul = 1;
-	}
+/*		free(*lineptr);*/
+		*lineptr = malloc(sizeof(char) * 1);
+/*		nul = 1;*/
+/*	*lineptr = malloc(sizeof(char) * 1);*/
 	for (; lineptr[len]; len++)
 		;
 	while ((confr = read(STDIN_FILENO, &ch, 1)) > 0)
@@ -37,12 +36,12 @@ ssize_t getstdin(char **lineptr)
 		return (-1);
 	if (readed < len)
 		*lineptr = _realloc(*lineptr, len, readed);
-	if (nul == 1)
+/*	if (nul == 1)
 	{
 		*lineptr2 = *lineptr;
 		for (; i <= len; i++)
 			lineptr2[0][i] = lineptr[0][i];
 		free(lineptr);
-	}
+		}*/
 	return (readed);
 }
