@@ -43,7 +43,7 @@ typedef struct paths
 	int len;
 	struct paths *next;
 } path_t;
-int print_env(void);
+int print_env(int i);
 /*ssize_t read_textfile(const char *filename, size_t letters);*/
 int _strlen(char *s);
 int _atoi(char *s);

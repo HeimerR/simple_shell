@@ -40,17 +40,30 @@ int f_exit(char **argv, char *line, bus_t *bus)
 */
 int f_env(char **argv, char *line, bus_t *bus)
 {
-/* int i = 0; */
-	(void) argv;
-	(void) line;
+	int i = 0, j = 0;
+	for (; argv[j]; j++)
+	{
+		if (argv[j][0] == '-')
+		{
+			if (argv[j][1] == '0' && i != 2)
+				i = 1;
+			else if (argv[j][1] == 'i')
+				i = 2;
+			else if (argv[j][1] != '0')
+			{
+				line[0] = argv[j][1];
+				line[1] = '\0';
+				write(1, "env: invalid option -- '", 24);
+				print_string(line);
+				write(1, "'\n", 2);
+				exit(125);
+			}
+		}
+	}
 	(void) bus;
 
-	 print_env();
-/*		write(STDOUT_FILENO, "\n", 1);*/
-
-	/**
-	 *	printf("%s\n", environ[i++]);
-	 */
+	if (i != 2)
+		print_env(i);
 	exit(0);
 return (0);
 }
