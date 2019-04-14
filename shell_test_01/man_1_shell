@@ -1,0 +1,132 @@
+.TH man 1 "15 April 2019" "1.0" "shell man page"
+.SH NAME
+.B shell
+- terminal command interpreter
+.SH SYNOPSIS
+hsh [filename]
+.SH DESCRIPTION
+Command language interpreter that executes commands read from the standard input device (keyboard) or from a file.
+
+.SH Overview
+     The shell is a command that reads lines from either a file or the terminal, interprets them, and generally executes other commands.
+
+.SH Quoting
+     Quoting is used to remove the special meaning of certain characters or words to the shell, such as operators, whitespace, or keywords. There are three types of quoting: matched single quotes, matched double quotes, and backslash.
+
+.SH   Backslash
+     A backslash preserves the literal meaning of the following character, with the exception of newline.  A backslash preceding a newline is treated as a line continuation.
+
+.SH   Single Quotes
+     Enclosing characters in single quotes preserves the literal meaning of all the characters (except single quotes, making it impossible to put single-quotes in a single-quoted string).
+.SH     Builtins
+     This section lists the builtin commands which are builtin because they need to perform some operation that can't be performed by a separate process.
+     
+.SH echo [-n] args...
+            Print the arguments on the standard output, separated by spaces.  Unless the -n option is present, a newline is output following the arguments.
+.PP
+.PP
+            If any of the following sequences of characters is encountered during output, the sequence is not output.  Instead, the specified action is performed:
+
+.TP
+            \\b 
+            A backspace character is output.
+.TP
+            \\c    
+            Subsequent output is suppressed.  This is normally used at the end of the last argument to suppress the trailing newline that echo would otherwise output.
+.TP
+            \\f   
+            Output a form feed.
+.TP
+            \\n   
+            Output a newline character.
+.TP
+            \\r    
+            Output a carriage return.
+.TP
+            \\t   
+            Output a (horizontal) tab character.
+.TP
+            \\v 
+            Output a vertical tab.
+.TP
+            \\0digits
+                    Output the character whose value is given by zero to three octal digits.  If there are zero digits, a nul character is output.
+.TP
+            \\\\    
+            Output a backslash.
+.PP
+            All other backslash sequences elicit undefined behaviour.
+            
+            
+.SH exit [exitstatus]
+            Terminate the shell process.  If exitstatus is given it is used as the exit status of the shell; otherwise the exit status of the preceding command is used.      
+.SH pwd 
+            builtin command remembers what the current directory is rather than recomputing it each time.  This makes it faster.  However, if the current directory is renamed, the builtin version of pwd will continue to print the old name for the directory.            
+
+
+.SH Example
+
+.SH Interactive mode
+.PP
+vagrant@vagrant-ubuntu-trusty-64 ./hsh
+.PP
+ *Ghost-in-the-shell-1*  ls
+.PP 
+hsh main.c shell.c
+.PP
+*Ghost-in-the-shell-1*
+.PP
+*Ghost-in-the-shell-1* exit
+.PP
+vagrant@vagrant-ubuntu-trusty-64 
+.PP
+.SH non-interactive mode:
+.PP
+vagrant@vagrant-ubuntu-trusty-64 echo "ls" | ./hsh
+.PP
+hsh main.c shell.c test_ls_2
+.PP
+vagrant@vagrant-ubuntu-trusty-64
+.PP
+vagrant@vagrant-ubuntu-trusty-64 cat test_ls_2
+.PP
+ls
+.PP
+ls
+.PP
+vagrant@vagrant-ubuntu-trusty-64
+.PP
+vagrant@vagrant-ubuntu-trusty-64 cat test_ls_2 | ./hsh
+.PP
+hsh main.c shell.c test_ls_2
+.PP
+hsh main.c shell.c test_ls_2
+.PP
+vagrant@vagrant-ubuntu-trusty-64
+
+.SH ENVIRONMENT
+.TP
+     HOME
+     Set automatically by login(1) from the user's login directory in the password file (passwd(4)).  This environment variable also functions as the default argument for the cd builtin.
+.TP
+     PATH 
+     The default search path for executables.  See the above section Path Search.
+.TP
+     TERM 
+     The default terminal setting for the shell.  This is inherited by children of the shell, and is used in the history editing modes.
+.TP
+     PWD
+     The logical value of the current working directory.  This is set by the cd command.
+.TP
+     OLDPWD
+     The logical value of the previous working directory.  
+     
+.SH Exit
+Can be terminated with CTRL+D (EOF) or with exit. Errors that are detected by the shell, such as a syntax error, will cause the shell to exit with a non-zero exit status.  If the shell is not an interactive shell, the execution of the shell file will be aborted.  Otherwise the shell will return the exit status of the last command executed, or if the exit builtin is used with a numeric argument, it will return the argument.
+
+.SH SEE ALSO
+.I csh(1), echo(1), getopt(1), ksh(1), login(1), printf(1), test(1), getopt(3), passwd(5), environ(7), sysctl(8)
+.SH BUGS
+Create a file where the env variables are stored but doesn't delete it.
+.SH AUTHOR
+Heimer Rojas, Jaiber Ramirez
