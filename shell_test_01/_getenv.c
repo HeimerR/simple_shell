@@ -12,7 +12,7 @@ char *_getenv(char *name)
 	int file_from, l_read;
 	char content[1024];
 
-/*	variable[0] =  str_concat(name, "=");*/
+	name =  str_concat(name, "=");
 	file_from = open("env_file", O_RDONLY);
 	while (brk == 0)
 	{
