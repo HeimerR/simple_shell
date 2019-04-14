@@ -5,7 +5,7 @@ int cp_env(void)
 	int status, i = 0;
 
 	status = create_file("env_file", NULL);
-	if (status == -1)
+if (status == -1)
 		return (status);
 	while(environ[i])
 	{
