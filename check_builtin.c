@@ -16,7 +16,6 @@ int check_bltin(char **argv, char *line, bus_t *bus)
 		{"exit", f_exit},
 		{"env", f_env},
 		{"setenv", f_setenv},
-	/*	{"alias", f_alias},  */
 		{NULL, NULL}
 		};
 

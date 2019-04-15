@@ -17,7 +17,7 @@ int print_env(int i)
 	{
 		l_read = read(file_from, content, 1024);
 		if (l_read == -1)
-			return(-1);
+			return (-1);
 		if (l_read != 1024)
 			brk = 1;
 		if (i == 1)

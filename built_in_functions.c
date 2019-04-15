@@ -1,9 +1,10 @@
 #include "shell.h"
 
 /**
-* f_env - prints envioroment variables
+* f_setenv - prints envioroment variables
 * @argv: unused
 * @line: arguments as a single pointer.
+* @bus: carries variables
 * Return: always 0
 */
 int f_setenv(char **argv, char *line, bus_t *bus)
@@ -19,7 +20,7 @@ int f_setenv(char **argv, char *line, bus_t *bus)
 	if (file_from == -1)
 		exit(-1);
 	confenv = _getenv(argv[1]);
-	if(_strcmp(confenv, "-1") == 0)
+	if (_strcmp(confenv, "-1") == 0)
 	{
 		for (len = 0; argv[1][len]; len++)
 			;
