@@ -14,6 +14,11 @@ path_t *create_list(char *strpath)
 
 	tmp = strpath;
 	head = NULL;
+	while(*tmp != '=')
+	{
+	tmp++;
+	}
+	tmp++;
 	while (strpath[i])
 	{
 		if (strpath[i] == ':')
