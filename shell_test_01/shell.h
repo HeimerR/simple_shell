@@ -9,6 +9,15 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 extern char **environ;
+/**
+ * struct buses - carries auxiliar variables
+ * @stat: exit status
+ * @count: counts promts pinted
+ * @arg0: argv[0]
+ *
+ * Description: carries variables through the program
+ *
+ */
 typedef struct buses
 {
 	int stat;
@@ -71,7 +80,7 @@ int print_string(char *str);
 char *number_to_string(int number, char base);
 int print_integer(int number);
 void reverse_str(char *str, int size, char keep_first);
-int execute(char **argv, char *name,char *line);
+int execute(char **argv, char *name, char *line);
 int check_argv(char **argv, char **argvex, bus_t *bus, char *line);
 void print_exit_error(char **argv, bus_t *bus, int argmt);
 int cp_env(void);

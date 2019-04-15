@@ -1,8 +1,7 @@
 #include "shell.h"
 /**
- * main - copies the content of a file to another file.
- * @ac: number of arguments
- * @av: array of arguments
+ * print_env - prints enviromental variables
+ * @i: aux
  * Return: Always 0.
  */
 int print_env(int i)
@@ -19,11 +18,11 @@ int print_env(int i)
 			brk = 1;
 		if (i == 1)
 		{
-			for(j = 0, k = 0; content[j]; j++)
+			for (j = 0, k = 0; content[j]; j++)
 			{
 				if (content[j] == '\n')
 				{
-					for(k = j; content[j]; j++)
+					for (k = j; content[j]; j++)
 						content[j] = content[j + 1];
 					l_read--;
 					j = k;
@@ -38,11 +37,5 @@ int print_env(int i)
 	close_file = close(file_from);
 	if (close_file == -1)
 		return (-1);
-/*	{ dprintf(STDERR_FILENO, "Error: Can't close fd  %d\n", file_from);
-		exit(100); }
-	close_file = close(file_to);
-	if (close_file == -1)
-	{ dprintf(STDERR_FILENO, "Error: Can't close fd  %d\n", file_to);
-		exit(100); }*/
 return (0);
 }

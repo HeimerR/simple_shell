@@ -14,28 +14,24 @@ path_t *create_list(char *strpath)
 
 	tmp = strpath;
 	head = NULL;
-	while(*tmp != '=')
+	while (*tmp != '=')
 	{
-	tmp++;
+		tmp++;
 	}
 	tmp++;
 	while (strpath[i])
 	{
 		if (strpath[i] == ':')
-		{
-			strpath[i] = '\0';
-			n++;
-		}
+		{ strpath[i] = '\0';
+			n++; }
 		i++;
 	}
 	i = 0;
 	while (i <= n)
 	{
 		if (*tmp)
-		{
-			len = add_node_end(&head, tmp);
-			tmp += len + 1;
-		}
+		{ len = add_node_end(&head, tmp);
+			tmp += len + 1; }
 		else
 		{
 			if (getcwd(buf, sizeof(buf)) != NULL)
@@ -44,9 +40,7 @@ path_t *create_list(char *strpath)
 				tmp += 2;
 			}
 			else
-			{
 				perror("getcwd() error");
-			}
 		}
 		i++;
 	}
