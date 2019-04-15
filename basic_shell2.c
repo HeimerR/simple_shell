@@ -47,10 +47,10 @@ int main(int ac, char *argvex[])
 		}
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "Ghost-in-the-shell-2 ", 21);
-		free(argv);
 		free(line);
 		for (i = 1; argv && argv[i]; i++)
 			free(argv[i]);
+		free(argv);
 	}
 	if (isatty(STDIN_FILENO))
 		printf("\n");

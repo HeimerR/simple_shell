@@ -4,9 +4,10 @@
 * @argv: arguments double pointer
 * @argvex: arguments dlouble pointer with argv[0]
 * @bus: carries variables
+* @line: arguments as a single pointer
 * Return: exit status 127
 **/
-int print_notfound(char **argv, char **argvex, bus_t *bus)
+int print_notfound(char **argv, char **argvex, bus_t *bus, char *line)
 {
 	int status, status2;
 	pid_t child;
@@ -21,6 +22,7 @@ int print_notfound(char **argv, char **argvex, bus_t *bus)
 		print_string(argv[0]);
 		write(STDOUT_FILENO, ": not found\n", 12);
 		free_grid(argv);
+		free(line);
 		exit(127);
 	}
 	else
@@ -45,7 +47,6 @@ int execute(char **argv, char *name, char *line)
 	char *path;
 
 	path = argv[0];
-	argv[0] = name;
 	free(name);
 	child = fork();
 	if (!child)
@@ -82,15 +83,14 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 	char *clone_path4;
 	path_t *head_path;
 	char *name;
+	path_t *clone_path5;
 
 	name = _strdup(argv[0]);
 	clone_path = _getenv("PATH");
 	if (clone_path && clone_path[0])
-	{
-		head_path = create_list(clone_path);
+	{		head_path = create_list(clone_path);
 		while (head_path)
-		{
-			clone_path2 = str_concat(head_path->path, "/");
+		{		clone_path2 = str_concat(head_path->path, "/");
 			clone_path3 = str_concat(clone_path2, argv[0]);
 			if (stat(clone_path3, &st) == 0)
 			{
@@ -104,9 +104,10 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 			}
 			free(clone_path2);
 			free(clone_path3);
+			clone_path5 = head_path;
 			free(head_path->path);
-			free(head_path);
 			head_path = head_path->next;
+			free(clone_path5);
 		}
 		free_list(head_path);
 	}
@@ -114,5 +115,5 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 	if (stat(argv[0], &st) == 0)
 		return (execute(argv, name, line));
 	free(name);
-	return (print_notfound(argv, argvex, bus));
+	return (print_notfound(argv, argvex, bus, line));
 }
