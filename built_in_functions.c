@@ -14,6 +14,7 @@ int f_setenv(char **argv, char *line, bus_t *bus)
 	(void) bus;
 	(void) line;
 
+	free(line);
 	if (!argv[1] || !argv[2] || argv[3])
 		exit(-1);
 	file_from = open("env_file", O_RDWR | O_APPEND);
@@ -31,6 +32,8 @@ int f_setenv(char **argv, char *line, bus_t *bus)
 		if (confw == -1)
 			exit(-1);
 	}
+	else
+		free(confenv);
 	for (len = 0; argv[2][len]; len++)
 		;
 	confw = write(file_from, argv[2], len);
@@ -42,6 +45,8 @@ int f_setenv(char **argv, char *line, bus_t *bus)
 	close_file = close(file_from);
 	if (close_file == -1)
 		return (-1);
+	free_grid(argv);
+
 	exit(0);
 return (0);
 }
@@ -89,7 +94,7 @@ int f_exit(char **argv, char *line, bus_t *bus)
 */
 int f_env(char **argv, char *line, bus_t *bus)
 {
-	int i = 0, j = 0;
+	int i = 0, j = 0, k = 0;
 
 	for (; argv[j]; j++)
 	{
@@ -106,12 +111,19 @@ int f_env(char **argv, char *line, bus_t *bus)
 				write(1, "env: invalid option -- '", 24);
 				print_string(line);
 				write(1, "'\n", 2);
+				for (k = 0; argv[k]; k++)
+					free(argv[k]);
+				free(argv);
+				free(line);
 				exit(125);
 			}
 		}
 	}
 	(void) bus;
-
+	for (k = 0; argv[k]; k++)
+		free(argv[k]);
+	free(argv);
+	free(line);
 	if (i != 2)
 		j = print_env(i);
 	exit(j);

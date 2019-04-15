@@ -56,7 +56,7 @@ int print_env(int i);
 /*ssize_t read_textfile(const char *filename, size_t letters);*/
 int _strlen(char *s);
 int _atoi(char *s);
-int print_notfound(char **argv, char **argvex, bus_t *bus);
+int print_notfound(char **argv, char **argvex, bus_t *bus, char * line);
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 char **create_argv(char *str, int len);
 char **_strtok(char *str, char *delim);
