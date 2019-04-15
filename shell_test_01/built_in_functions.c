@@ -1,4 +1,50 @@
 #include "shell.h"
+
+/**
+* f_env - prints envioroment variables
+* @argv: unused
+* @line: arguments as a single pointer.
+* Return: always 0
+*/
+int f_setenv(char **argv, char *line, bus_t *bus)
+{
+	int len = 0, file_from, confw = 0, close_file = 0;
+	char *confenv;
+	(void) bus;
+	(void) line;
+
+	if (!argv[1] || !argv[2] || argv[3])
+		exit(-1);
+	file_from = open("env_file", O_RDWR | O_APPEND);
+	if (file_from == -1)
+		exit(-1);
+	confenv = _getenv(argv[1]);
+	if(_strcmp(confenv, "-1") == 0)
+	{
+		for (len = 0; argv[1][len]; len++)
+			;
+		confw = write(file_from, argv[1], len);
+		if (confw == -1)
+			exit(-1);
+		confw = write(file_from, "=", 1);
+		if (confw == -1)
+			exit(-1);
+	}
+	for (len = 0; argv[2][len]; len++)
+		;
+	confw = write(file_from, argv[2], len);
+	if (confw == -1)
+		exit(-1);
+	confw = write(file_from, "\n", 1);
+	if (confw == -1)
+		exit(-1);
+	close_file = close(file_from);
+	if (close_file == -1)
+		return (-1);
+	exit(0);
+return (0);
+}
+
 /**
 * f_exit - exit function - exit the shell
 * @argv: unused
@@ -63,8 +109,8 @@ int f_env(char **argv, char *line, bus_t *bus)
 	(void) bus;
 
 	if (i != 2)
-		print_env(i);
-	exit(0);
+		j = print_env(i);
+	exit(j);
 return (0);
 }
 void print_exit_error(char **argv, bus_t *bus, int argmt)

@@ -59,6 +59,7 @@ char *_getenv(char *str);
 int check_bltin(char **argv, char *line, bus_t *bus);
 int f_exit(char **argv, char *line, bus_t *bus);
 int f_env(char **argv, char *line, bus_t *bus);
+int f_setenv(char **argv, char *line, bus_t *bus);
 int _strcmp(char *s1, char *s2);
 ssize_t getstdin(char **lineptr);
 path_t *create_list(char *str);
