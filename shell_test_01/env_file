@@ -18,3 +18,4 @@ XDG_RUNTIME_DIR=/run/user/1000
 LESSCLOSE=/usr/bin/lesspipe %s %s
 _=./hsh
 OLDPWD=/home/vagrant/shell-final/simple_shell
+
