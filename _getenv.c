@@ -31,5 +31,5 @@ char *_getenv(char *name)
 	}
 	if (brk == 1)
 		return (variable[i - 1]);
-	return (NULL);
+	return ("-1");
 }
