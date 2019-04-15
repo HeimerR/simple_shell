@@ -88,13 +88,13 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 	name = _strdup(argv[0]);
 	clone_path = _getenv("PATH");
 	if (clone_path && clone_path[0])
-	{		head_path = create_list(clone_path);
+	{
+		head_path = create_list(clone_path);
 		while (head_path)
 		{		clone_path2 = str_concat(head_path->path, "/");
 			clone_path3 = str_concat(clone_path2, argv[0]);
 			if (stat(clone_path3, &st) == 0)
-			{
-				clone_path4 = argv[0];
+			{ clone_path4 = argv[0];
 				argv[0] = clone_path3;
 				free(clone_path4);
 				free(clone_path2);
