@@ -17,10 +17,11 @@ char *_getenv(char *name)
 		break;
 	j++;
 	}
+	if (environ[j] == NULL)
+		return("-1");
 	clone_value = _strdup(environ[j]);
 	if (clone_value)
 		rmstr(clone_value, variable);
 	free(variable);
 	return (clone_value);
 }
-
