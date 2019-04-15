@@ -1,4 +1,11 @@
 #include "shell.h"
+/**
+* print_notfound - prints erro command not found
+* @argv: arguments double pointer
+* @argvex: arguments dlouble pointer with argv[0]
+* @bus: carries variables
+* Return: exit status 127
+**/
 int print_notfound(char **argv, char **argvex, bus_t *bus)
 {
 	int status, status2;
@@ -8,11 +15,11 @@ int print_notfound(char **argv, char **argvex, bus_t *bus)
 	if (!child)
 	{
 		print_string(argvex[0]);
-		write(STDOUT_FILENO,": ",2);
+		write(STDOUT_FILENO, ": ", 2);
 		print_integer(bus->count);
-		write(STDOUT_FILENO,": ",2);
+		write(STDOUT_FILENO, ": ", 2);
 		print_string(argv[0]);
-		write(STDOUT_FILENO,": not found\n",12);
+		write(STDOUT_FILENO, ": not found\n", 12);
 		free_grid(argv);
 		exit(127);
 	}
@@ -24,6 +31,13 @@ int print_notfound(char **argv, char **argvex, bus_t *bus)
 	}
 	return (status2);
 }
+/**
+* execute - execute commands as a child process
+* @argv: arguments as a doulble pointer
+* @name: argv[0]
+* @line: arguments as a single pointer
+* Return: exit status
+**/
 int execute(char **argv, char *name, char *line)
 {
 	int status, status2;
@@ -55,7 +69,8 @@ int execute(char **argv, char *name, char *line)
  * check_argv -  checks if the arguments is in PATH
  * @argv: arguments taken from getline
  * @argvex: arguments taken from main prototype
- * @count: counter - number of getline calls
+ * @bus: carries variables
+ * @line: arguments as a single pointer
  * Return: -1 if the argument does not exist in PATH, other cases 0
  */
 int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
@@ -98,9 +113,6 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 	free(clone_path);
 	if (stat(argv[0], &st) == 0)
 		return (execute(argv, name, line));
-/**
- *	printf("%s: %d: %s: not found\n", argvex, count, argv[0]);
- */
 	free(name);
 	return (print_notfound(argv, argvex, bus));
 }
