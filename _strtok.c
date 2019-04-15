@@ -30,11 +30,10 @@ char **_strtok(char *str, char *delim)
 	while (str[i] != '\0')
 	{
 		count++;
-		if (str[i] != delim[0] && str[i + 1] ==  delim[0])
+		if (str[i] != delim[0] && (str[i + 1] ==  delim[0] || str[i + 1] == '\0'))
 		{ height++; }
 	i++;
 	}
-	height++;
 	if (height == 0)
 		return (NULL);
 	p = (char **)malloc(sizeof(char *) * (height + 1));
