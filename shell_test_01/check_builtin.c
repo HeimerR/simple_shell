@@ -3,6 +3,7 @@
 * check_bltin - check if an argument is a built-in function
 * @argv: arguments as a dlouble pointer
 * @line: arguments as a single string
+* @bus: carries variables
 * Return: 1 if not is a built in. 0 If it is
 */
 int check_bltin(char **argv, char *line, bus_t *bus)
@@ -25,31 +26,23 @@ int check_bltin(char **argv, char *line, bus_t *bus)
 		{
 			child = fork();
 			if (!child)
-			{
 				status = built[j].type(argv, line, bus);
-			}
 			else
-			{
-				waitpid(-1, &status, 0);
+			{ waitpid(-1, &status, 0);
 				status2 = WEXITSTATUS(status);
 				if (status2 == 254)
-				{
-					free_grid(argv);
+				{ free_grid(argv);
 					free(line);
 					exit(bus->stat);
-				break;
-				}
+					break; }
 				if (status2 == 253)
-				{
-					status3 = _atoi(argv[1]);
+				{ status3 = _atoi(argv[1]);
 					free_grid(argv);
 					free(line);
 					exit(status3);
-					break;
-				}
+					break; }
 				bus->stat = status2;
-				status = 0;
-			}
+				status = 0; }
 			free(argv[0]);
 			break;
 		}

@@ -49,6 +49,7 @@ return (0);
 * f_exit - exit function - exit the shell
 * @argv: unused
 * @line: arguments as a single pointer.
+* @bus: carries auxilar variables
 * Return: always 0
 */
 int f_exit(char **argv, char *line, bus_t *bus)
@@ -81,12 +82,14 @@ int f_exit(char **argv, char *line, bus_t *bus)
 /**
 * f_env - prints envioroment variables
 * @argv: unused
+* @bus: carries auxiliar variables
 * @line: arguments as a single pointer.
 * Return: always 0
 */
 int f_env(char **argv, char *line, bus_t *bus)
 {
 	int i = 0, j = 0;
+
 	for (; argv[j]; j++)
 	{
 		if (argv[j][0] == '-')
@@ -113,12 +116,19 @@ int f_env(char **argv, char *line, bus_t *bus)
 	exit(j);
 return (0);
 }
+/**
+* print_exit_error - prints envioroment variables
+* @argv: unused
+* @bus: carries auxiliar variables
+* @argmt: argv[0]
+* Return: no return
+*/
 void print_exit_error(char **argv, bus_t *bus, int argmt)
 {
 	print_string(bus->arg0);
 	write(STDOUT_FILENO, ": ", 2);
 	print_integer(bus->count);
-	write(STDOUT_FILENO, ": ",2);
+	write(STDOUT_FILENO, ": ", 2);
 	print_string(argv[0]);
 	write(STDOUT_FILENO, ": Illegal number:", 17);
 	print_integer(argmt);
