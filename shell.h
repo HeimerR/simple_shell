@@ -54,6 +54,7 @@ typedef struct paths
 } path_t;
 int print_env(int i);
 /*ssize_t read_textfile(const char *filename, size_t letters);*/
+void print_exit_error2(char **argv, bus_t *bus);
 int _strlen(char *s);
 int _atoi(char *s);
 int print_notfound(char **argv, char **argvex, bus_t *bus, char *line);
