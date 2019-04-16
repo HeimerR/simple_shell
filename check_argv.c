@@ -16,11 +16,11 @@ int print_notfound(char **argv, char **argvex, bus_t *bus, char *line)
 	if (!child)
 	{
 		print_string(argvex[0]);
-		write(STDOUT_FILENO, ": ", 2);
+		write(STDERR_FILENO, ": ", 2);
 		print_integer(bus->count);
-		write(STDOUT_FILENO, ": ", 2);
+		write(STDERR_FILENO, ": ", 2);
 		print_string(argv[0]);
-		write(STDOUT_FILENO, ": not found\n", 12);
+		write(STDERR_FILENO, ": not found\n", 12);
 		free_grid(argv);
 		free(line);
 		exit(127);
