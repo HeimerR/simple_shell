@@ -58,5 +58,5 @@ int main(int ac, char *argvex[])
 /*
 *	free_grid(argv);
 */
-	return (0);
+	return (bus->stat);
 }
