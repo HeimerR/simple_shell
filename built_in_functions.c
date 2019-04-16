@@ -63,9 +63,16 @@ int f_exit(char **argv, char *line, bus_t *bus)
 	int argmt;
 	(void) bus;
 
-	if (argv[1])
+	if (argv[1] && (_strcmp(argv[1], "0") != 0))
 	{
 		argmt = _atoi(argv[1]);
+		if (argmt == 0)
+		{
+			print_exit_error2(argv, bus);
+			free_grid(argv);
+			free(line);
+			exit(2);
+		}
 		if (argmt < 0)
 		{
 			print_exit_error(argv, bus, argmt);
@@ -143,7 +150,24 @@ void print_exit_error(char **argv, bus_t *bus, int argmt)
 	print_integer(bus->count);
 	write(STDERR_FILENO, ": ", 2);
 	print_string(argv[0]);
-	write(STDERR_FILENO, ": Illegal number: ", 17);
+	write(STDERR_FILENO, ": Illegal number: ", 18);
 	print_integer(argmt);
+	write(STDERR_FILENO, "\n", 1);
+}
+/**
+* print_exit_error2 - prints envioroment variables
+* @argv: unused
+* @bus: carries auxiliar variables
+* Return: no return
+*/
+void print_exit_error2(char **argv, bus_t *bus)
+{
+	print_string(bus->arg0);
+	write(STDERR_FILENO, ": ", 2);
+	print_integer(bus->count);
+	write(STDERR_FILENO, ": ", 2);
+	print_string(argv[0]);
+	write(STDERR_FILENO, ": Illegal number: ", 18);
+	print_string(argv[1]);
 	write(STDERR_FILENO, "\n", 1);
 }
