@@ -100,8 +100,7 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 				free(clone_path2);
 				free(clone_path);
 				free_list(head_path);
-				return (execute(argv, name, line));
-			}
+				return (execute(argv, name, line)); }
 			free(clone_path2);
 			free(clone_path3);
 			clone_path5 = head_path;
@@ -111,7 +110,8 @@ int check_argv(char **argv, char **argvex, bus_t *bus, char *line)
 		}
 		free_list(head_path);
 	}
-	free(clone_path);
+	if (_strcmp(clone_path, "-1") != 0)
+		free(clone_path);
 	if (stat(argv[0], &st) == 0)
 		return (execute(argv, name, line));
 	free(name);
