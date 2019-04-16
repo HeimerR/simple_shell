@@ -108,9 +108,9 @@ int f_env(char **argv, char *line, bus_t *bus)
 			{
 				line[0] = argv[j][1];
 				line[1] = '\0';
-				write(1, "env: invalid option -- '", 24);
+				write(2, "env: invalid option -- '", 24);
 				print_string(line);
-				write(1, "'\n", 2);
+				write(2, "'\n", 2);
 				for (k = 0; argv[k]; k++)
 					free(argv[k]);
 				free(argv);
@@ -139,11 +139,11 @@ return (0);
 void print_exit_error(char **argv, bus_t *bus, int argmt)
 {
 	print_string(bus->arg0);
-	write(STDOUT_FILENO, ": ", 2);
+	write(STDERR_FILENO, ": ", 2);
 	print_integer(bus->count);
-	write(STDOUT_FILENO, ": ", 2);
+	write(STDERR_FILENO, ": ", 2);
 	print_string(argv[0]);
-	write(STDOUT_FILENO, ": Illegal number:", 17);
+	write(STDERR_FILENO, ": Illegal number: ", 17);
 	print_integer(argmt);
-	write(STDOUT_FILENO, "\n", 1);
+	write(STDERR_FILENO, "\n", 1);
 }
