@@ -53,6 +53,7 @@ typedef struct paths
 	struct paths *next;
 } path_t;
 int print_env(int i);
+void ignore_comments(char *line);
 /*ssize_t read_textfile(const char *filename, size_t letters);*/
 void print_exit_error2(char **argv, bus_t *bus);
 int _strlen(char *s);
