@@ -36,6 +36,7 @@ int main(int ac, char *argvex[])
 	signal(SIGINT,  signalc);
 	while ((confg = getstdin(&line)) != -1)
 	{
+		ignore_comments(line);
 		bus->count++;
 		argv = create_argv(line, confg);
 		bus->arg0 = argvex[0];
@@ -55,8 +56,5 @@ int main(int ac, char *argvex[])
 	if (isatty(STDIN_FILENO))
 		printf("\n");
 	free(line);
-/*
-*	free_grid(argv);
-*/
 	return (bus->stat);
 }
